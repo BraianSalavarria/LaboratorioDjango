@@ -5,7 +5,6 @@ from apps.persona.models import Docente
 
 class ComicionDeSeguimiento(models.Model):
     nroResolucion = models.CharField(max_length=15, unique=True)
-    docentes = models.ManyToManyField(Docente)
     fechaDeComicion = models.DateField()
 
     class Meta:
@@ -13,20 +12,27 @@ class ComicionDeSeguimiento(models.Model):
 
 
 class TribunalEvaluador(models.Model):
-    ROLES_OPCIONES = (
+    nroResolucion = models.CharField(max_length=15, unique=True)
+    fechaTribunal = models.DateField()
+
+    class Meta:
+        ordering = ['fechaTribunal']
+
+
+class IntegrantesTribunal(models.Model):
+    nroResolucionTribunal = models.CharField(max_length=15)
+    TIPO_OPCIONES = (
         ('PRESIDENTE', 'Presidente'),
         ('VOCAL_TITULAR', 'Vocal Titular'),
         ('VOCAL_SUPLENTE', 'Vocal Suplente')
     )
+    integrante = models.ForeignKey(Docente, on_delete=models.CASCADE)
+    tipo = models.CharField(max_length=15, choices=TIPO_OPCIONES)
 
-    nroResolucion = models.CharField(max_length=15, unique=True)
-    fechaTribunal = models.DateField()
-    docentes = models.ManyToManyField(Docente)
-    NRO_DOCENTES = 5
-    rol = models.CharField(max_length=15, choices=ROLES_OPCIONES)
 
-    class Meta:
-        ordering = ['fechaTribunal']
+class IntegrantesComicion(models.Model):
+    nroResolucionComicion = models.CharField(max_length=15)
+    integrante = models.ForeignKey(Docente, on_delete=models.CASCADE)
 
 
 class AbstractInforme(models.Model):
@@ -51,6 +57,6 @@ class InformeEvaluacionPTF(AbstractInforme):
 
 class InformeEvaluacionFormalPTF(AbstractInforme):
     descripcion = models.TextField(max_length=500)
-    plazoObservacion = models.DateField()
+    plazoObservacion = models.DateField().blank = True
     comicionSeguimiento = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
     proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)

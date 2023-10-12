@@ -1,29 +1,31 @@
 from django.db import models
 from apps.persona.models import Docente
-from apps.persona.models import Alumno
 from apps.persona.models import Ascesor
+from apps.persona.models import Alumno
 
 # Create your models here.
 
 
 class ProyectoTrabajoFinal(models.Model):
-    ROL_OPCIONES = (
-        ('DIRECTOR', 'Director'),
-        ('CO-DIRECTOR', 'Co-Director'),
-    )
 
     titulo = models.CharField(max_length=40, unique=True)
     fechaPresentacion = models.DateField()
     descripcion = models.TextField(max_length=500)
     NroResolucionTribunal = models.CharField(max_length=15)
-    rolDocente = models.CharField(max_length=12, choices=ROL_OPCIONES)
     archivosAdjuntos = models.FileField(upload_to='Files/ArchivosDePTF/', blank=False, null=False, default=None)
-    docentes = models.ManyToManyField(Docente)
-    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
-    ascesor = models.ForeignKey(Ascesor, on_delete=models.CASCADE, null=True)
+    director = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name='director')
+    coDirector = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name='codirector')
+    ascesor = models.ForeignKey(Ascesor, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['fechaPresentacion']
+
+
+class IntegrantesPTF(models.Model):
+    codProyecto = models.IntegerField()
+    integrante = models.ForeignKey(Alumno, on_delete=models.CASCADE)
+    fechaAlta = models.DateField()
+    fechaBaja = models.DateField().blank = True
 
 
 class MovimientosPTF(models.Model):
@@ -34,9 +36,11 @@ class MovimientosPTF(models.Model):
         ('PROYECTO_EVALUADO_POR_EL_TRIBUNAL', 'Proyecto Evaluado por el Tribunal'),
         ('PROYECTO_APROBADO', 'Proyecto Aprobado')
     )
-
-    fechaDeMovimiento = models.DateTimeField()
+    movimiento = models.CharField(max_length=51, choices=MOVIMIENTOS_OPCIONES)
     proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)
+    fechaDeMovimiento = models.DateField()
+    fechaVencimientoMovimiento = models.DateField().blank = True
+    archivosAdjuntoOpcional = models.FileField(upload_to='Files/ArchivosDeMovimientos/', blank=True)
 
     class Meta:
         ordering = ['fechaDeMovimiento']

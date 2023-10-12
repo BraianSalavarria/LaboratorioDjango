@@ -15,6 +15,7 @@ class AbstractPersona(models.Model):
 
 class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
+    matricula = models.CharField(unique=True)
     correoElectronico = models.EmailField(max_length=256, blank=False, null=False)
 
 
