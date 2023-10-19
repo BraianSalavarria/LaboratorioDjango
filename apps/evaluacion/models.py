@@ -41,6 +41,7 @@ class AbstractInforme(models.Model):
         ('RECHAZADO', 'Rechazado'),
         ('OBSERVADO', 'Observado')
     )
+    observacion = models.TextField(max_length=500)
     fechaInforme = models.DateField()
     estado = models.CharField(max_length=10, choices=ESTADO_OPCIONES)
 
@@ -56,7 +57,6 @@ class InformeEvaluacionPTF(AbstractInforme):
 
 
 class InformeEvaluacionFormalPTF(AbstractInforme):
-    descripcion = models.TextField(max_length=500)
     plazoObservacion = models.DateField().blank = True
     comicionSeguimiento = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
     proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)

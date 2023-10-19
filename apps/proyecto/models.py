@@ -22,7 +22,7 @@ class ProyectoTrabajoFinal(models.Model):
 
 
 class IntegrantesPTF(models.Model):
-    codProyecto = models.IntegerField()
+    proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)
     integrante = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     fechaAlta = models.DateField()
     fechaBaja = models.DateField().blank = True
