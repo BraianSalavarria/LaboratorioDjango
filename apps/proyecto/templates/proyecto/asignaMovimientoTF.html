@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Movimientos</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Sep 18 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+
+    <main id="main" class="main">
+
+
+        <section class="section dashboard">
+            <div class="row">
+      
+              <!-- Left side columns -->
+              <div class="col-lg-8">
+                <div class="row">
+      
+                 
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Asignar Movimiento a Trabajo Final</h5>
+            
+                          <!-- Vertical Form -->
+                          <form class="row g-3">
+                            <div class="col-12">
+                              <label for="nroTF" class="form-label">Nro de Trabajo Final</label>
+                          <input type="text" class="form-control" id="nroTF">
+                          </div>
+                          <div class="col-12">
+                            <label class="col-sm-2 col-form-label" for="Movimientos">Estado</label>
+                              <select class="form-select" aria-label="Default select example" id="Movimientos">
+                                <option selected>Aceptado</option>
+                                <option value="PROYECTO_PRESENTADO">Proyecto Presentado - Esperando Evaluacion por CSTF</option>
+                                <option value="PROYECTO_EVALUADO_POR_CSTF">Proyectado Evaluado por la CSTF</option>
+                                <option value="PROYECTO_EN_EVALUACION_POR_EL_TRIBUNAL">Proyecto en Evaluacion por el Tribunal</option>
+                                <option value="PROYECTO_EVALUADO_POR_EL_TRIBUNAL">Proyecto Evaluado por el Tribunal</option>
+                                <option value="PROYECTO_APROBADO">Proyecto Aprobado</option>
+                              </select>
+                          </div> 
+                          <div class="col-12">
+                            <label for="fechaMovimiento" >Fecha del Movimiento</label>
+                            <input type="date" class="form-control" id="fechaMovimiento">
+                          </div>  
+                          <div class="col-12">
+                            <label for="fechaVencimientoMovimiento" >Fecha de Vencimiento del Movimiento</label>
+                            <input type="date" class="form-control" id="fechaVencimientoMovimiento">
+                          </div>
+                          <div class="col-12">
+                            <label for="file">Archivos Adjuntos (opcional)</label>
+                            <input class="form-control" type="file" id="file">
+                          </div>     
+                        <div class="text-center">
+                              <button type="submit" class="btn btn-primary">Registrar Movimiento</button>
+                        </div>
+                          </form><!-- Vertical Form -->
+            
+                        </div>
+                      </div>
+
+
+                    </div><!-- End sidebar recent posts-->
+                  </div>
+                </div><!-- End News & Updates -->
+          </section>
+      
+        </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>        
+
+
