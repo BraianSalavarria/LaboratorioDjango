@@ -1,0 +1,50 @@
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de configuración específicos del entorno
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+
+# Archivos de logs y dumps de Django
+*.log
+*.log.*
+*.dump
+*.db
+
+# Archivos generados por el sistema
+__init__.py
+*.swp
+
+# Directorio de medios (archivos cargados por los usuarios)
+media/
+
+# Archivos de compilación
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Archivos de configuración local
+local_settings.py
+
+# Archivo .env para variables de entorno
+.env
+
+# Carpeta de dependencias generada por pip
+lib/
+lib64/
+lib32/
+bin/
+include/
+
+# Si estás utilizando Python Poetry para gestionar dependencias
+pyproject.toml
+poetry.lock
+
+# Si estás utilizando Pipenv para gestionar dependencias
+Pipfile
+Pipfile.lock
+
