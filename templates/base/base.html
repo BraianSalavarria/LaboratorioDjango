@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Inicio</title>
+    <title>{% block title %} Inicio {% endblock %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -134,15 +134,15 @@
           <ul
             id="components-nav"
             class="nav-content collapse"
-            data-bs-parent="#sidebar-nav"
-          >
+            data-bs-parent="#sidebar-nav">
+
             <li>
-              <a href="#">
+              <a href="{% url 'persona:registrar_alumno' %}">
                 <i class="bi bi-circle"></i><span>Registrar Alumno</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{% url 'persona:dar_baja' %}">
                 <i class="bi bi-circle"></i><span>Dar de Baja</span>
               </a>
             </li>
@@ -327,6 +327,9 @@
           </div>
         </div>
       </section>
+      <div style="text-aling: center">
+        {% block content %}{% endblock %}
+      </div>
     </main>
     <!-- End #main -->
 

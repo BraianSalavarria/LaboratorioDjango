@@ -1,3 +1,4 @@
+{% extends 'base/base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>{% block title %}Dar de Baja{% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +44,7 @@
 
 
     <main id="main" class="main">
-
+{% block content %}
 
         <section class="section dashboard">
             <div class="row">
@@ -52,7 +53,7 @@
               <div class="col-lg-8">
                 <div class="row">
       
-                 
+
                     <div class="card">
                         <div class="card-body">
                           <h5 class="card-title">Dar de Baja</h5>
@@ -62,7 +63,7 @@
                             <div class="col-12">
                               <label for="dni-cuil" class="form-label">Dni o Cuil</label>
                           <input type="text" class="form-control" id="dni-cuil" placeholder="ejemplo: 01247">
-                          </div>    
+                          </div>
                             <div class="text-center">
                               <button type="submit" class="btn btn-primary">Aceptar</button>
                             </div>
@@ -76,6 +77,8 @@
                   </div>
                 </div><!-- End News & Updates -->
           </section>
+
+      {% endblock %}
         </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
