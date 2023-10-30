@@ -176,8 +176,13 @@
               </a>
             </li>
             <li>
-              <a href="#">
-                <i class="bi bi-circle"></i><span>Dar de Baja</span>
+              <a href="{% url 'persona:dar_baja_docente' %}">
+                <i class="bi bi-circle"></i><span>Dar de Baja Docente</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'persona:dar_baja_ascesor' %}">
+                <i class="bi bi-circle"></i><span>Dar de Baja Ascesor</span>
               </a>
             </li>
           </ul>
@@ -200,7 +205,7 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="#">
+              <a href="{% url 'evaluacion:registrar_comicion' %}">
                 <i class="bi bi-circle"></i><span>Registrar Comision</span>
               </a>
             </li>

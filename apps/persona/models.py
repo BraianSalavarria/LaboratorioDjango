@@ -25,4 +25,4 @@ class Docente(AbstractPersona):
 
 class Ascesor(AbstractPersona):
     cuil = models.CharField(max_length=11, unique=True)
-    curriculum = models.FileField('Files/CurriculumAscesor/')
+    curriculum = models.FileField(upload_to='Files/CurriculumAscesor/')

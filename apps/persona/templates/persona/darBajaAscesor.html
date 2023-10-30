@@ -1,4 +1,4 @@
-{% extends 'base/base.html '%}
+{% extends 'base/base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,12 +7,12 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>{% block title %}Nueva Comicion{% endblock %}</title>
+  <title>{% block title %}Dar de Baja{% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'ssets/img/favicon.png' %}" rel="icon">
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -44,7 +44,7 @@
 
 
     <main id="main" class="main">
-        {% block content %}
+{% block content %}
 
         <section class="section dashboard">
             <div class="row">
@@ -53,25 +53,24 @@
               <div class="col-lg-8">
                 <div class="row">
       
-                 
+
                     <div class="card">
                         <div class="card-body">
-                          <h5 class="card-title">Nueva Comición</h5>
+                          <h5 class="card-title">Dar de Baja</h5>
             
                           <!-- Vertical Form -->
-                          <form class="row g-3" method="post" enctype="multipart/form-data">
-
-                              {% for field in form %}
-
-                              <div>
-                                  {{field.errors}} {{fied.label_tag}} {{field}}
-                              </div>
-                              <br>
-                              {% endfor %} {% csrf_token %}
-
-                        <div class="text-center">
-                              <button type="submit" class="btn btn-primary">Registrar</button>
-                        </div>
+                          {% if mensaje %}
+                              <p style="text-align:center" style="color:tomato">{{ mensaje }}</p>
+                          {% endif %}
+                          <form class="row g-3" method="post" action="{% url 'persona:dar_baja_ascesor' %}">
+                              {% csrf_token %}
+                            <div class="col-12">
+                              <label for="cuil" class="form-label">Dni o Cuil</label>
+                          <input type="text" class="form-control" id="cuil" name="cuil" placeholder="ejemplo: 39478879" required>
+                          </div>
+                            <div class="text-center">
+                              <button type="submit" class="btn btn-primary">Aceptar</button>
+                            </div>
                           </form><!-- Vertical Form -->
             
                         </div>
@@ -82,13 +81,13 @@
                   </div>
                 </div><!-- End News & Updates -->
           </section>
-        {% endblock %}
+
+      {% endblock %}
         </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  
   <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
