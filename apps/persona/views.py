@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from .forms import AlumnoForm, DocenteForm
+from .forms import AlumnoForm, DocenteForm, AsesorForm
 from .models import Alumno
 
 
@@ -29,7 +29,15 @@ def registrar_docente(request):
 
 
 def registrar_ascesor(request):
-    return render(request, 'persona/registroAscesor.html')
+    nuevo_asesor = None
+    if request.method == 'POST':
+        registrar_asesor_form = AsesorForm(request.POST)
+        if registrar_asesor_form.is_valid():
+            nuevo_asesor = registrar_asesor_form.save(commit=True)
+            messages.success(request, f'se ha registrado el asesor {nuevo_asesor} correctamente')
+    else:
+        registrar_asesor_form = AsesorForm()
+    return render(request, 'persona/registroAscesor.html',{'form': registrar_asesor_form})
 
 
 def dar_baja_alumno(request):
