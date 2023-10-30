@@ -9,7 +9,7 @@ def registrar_comicion(request):
         registrar_comicion_form = ComicionForm(request.POST)
         if registrar_comicion_form.is_valid():
             nueva_comicion = registrar_comicion_form.save(commit=True)
-            messages.success(request, f'se ha registrado la comicion')
+            messages.success(request, f'se ha registrado la comicion {nueva_comicion}')
     else:
         registrar_comicion_form = ComicionForm()
     return render(request, 'evaluacion/registroComicion.html', {'form': registrar_comicion_form})
