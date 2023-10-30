@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django import forms
+from django import forms
 from apps.persona.models import Alumno
 from .models import Docente
 
@@ -18,9 +19,6 @@ class AlumnoForm(ModelForm):
     class Meta:
         model = Alumno
         fields = ('nombre', 'apellido', 'dni', 'matricula', 'correoElectronico')
-    
-
-# formulario para la clase Docente
 
 class DocenteForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -29,8 +27,7 @@ class DocenteForm(ModelForm):
         self.fields["apellido"].widget.attrs.update({"class": "form-control"})
         self.fields["cuil"].widget.attrs.update({"class": "form-control"})
     class Meta:
-        model = Docente
+        model = Alumno
         fields = ('nombre', 'apellido', 'cuil')
-        
-    
-        
+
+
