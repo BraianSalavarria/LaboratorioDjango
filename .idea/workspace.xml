@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46e551f9-1bee-4e53-b6e4-15ea3247d66b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/persona/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/persona/templates/persona/darBaja.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/templates/persona/darBaja.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/persona/templates/persona/registroAlumnos.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/templates/persona/registroAlumnos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/persona/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/persona/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laboratorioProg3/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/laboratorioProg3/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
