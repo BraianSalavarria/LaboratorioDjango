@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render
-from .forms import ComicionForm,TribunalForm
+from .forms import ComicionForm,TribunalForm,RegistrarInformeEvTFForm,AsignarDocenteForm
 from .models import TribunalEvaluador
+from apps.persona.models import Docente
 
 
 def registrar_comicion(request):
@@ -37,11 +38,25 @@ def registrar_tribunal(request):
 
 
 def asignar_docente_tribunal(request):
-    return render(request, 'evaluacion/asignaDocenteTribunal.html')
+    if request.method == 'POST':
+        asignar_form = AsignarDocenteForm(request.POST)
+        if asignar_form.is_valid():
+            asignar_form.save(commit=True)
+    else:
+        asignar_form = AsignarDocenteForm()
+    return render(request, 'evaluacion/asignaDocenteTribunal.html',{'form':asignar_form})
 
 
 def registrar_evaluacion_tf(request):
-    return render(request, 'evaluacion/registrarInformeEvTF.html')
+    evaluacion = None
+    if request.method == 'POST':
+        evaluacion_form = RegistrarInformeEvTFForm(request.POST, request.FILES)
+        if evaluacion_form.is_valid():
+            evaluacion = evaluacion_form.save(commit=True)
+            messages.success(request,f'Se ha registrado con exito la evaluacion {evaluacion}')
+    else:
+        evaluacion_form = RegistrarInformeEvTFForm()
+    return render(request, 'evaluacion/registrarInformeEvTF.html',{'form':evaluacion_form})
 
 
 def listar_tribunales(request):

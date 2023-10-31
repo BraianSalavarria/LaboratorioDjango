@@ -17,10 +17,13 @@ class TribunalEvaluador(models.Model):
 
     class Meta:
         ordering = ['fechaTribunal']
+        
+    def __str__(self) -> str:
+        return f'{self.nroResolucion}'
 
 
 class IntegrantesTribunal(models.Model):
-    nroResolucionTribunal = models.CharField(max_length=15)
+    nroResolucionTribunal = models.ForeignKey(TribunalEvaluador,on_delete=models.CASCADE)
     TIPO_OPCIONES = (
         ('PRESIDENTE', 'Presidente'),
         ('VOCAL_TITULAR', 'Vocal Titular'),

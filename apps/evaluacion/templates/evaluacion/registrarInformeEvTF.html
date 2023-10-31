@@ -1,11 +1,11 @@
-{% load static %}
+{% extends 'base/base.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Nuevo Tribunal</title>
+    <title>{% block title %}Registrar evaluacion{% endblock %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -67,6 +67,7 @@
 
   <body>
     <main id="main" class="main">
+      {% block content %}
       <section class="section dashboard">
         <div class="row">
           <!-- Left side columns -->
@@ -79,33 +80,16 @@
                   </h5>
 
                   <!-- Vertical Form -->
-                  <form class="row g-3">
+                  <form
+                    class="row g-3"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    {% for field in form %}
                     <div class="col-12">
-                      <label for="nroTribunal" class="form-label"
-                        >Nro Tribunal</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nroTribunal"
-                        placeholder="ejemplo: "
-                      />
+                      {{ field.errors}} {{field.label_tag}} {{field}}
                     </div>
-                    <div class="col-12">
-                      <label for="nroTF" class="form-label"
-                        >Nro Trabajo Final</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nroTF"
-                        placeholder="ejemplo: "
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="file">Archivos Adjuntos</label>
-                      <input class="form-control" type="file" id="file" />
-                    </div>
+                    {% endfor %} {% csrf_token %}
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">
                         Registrar
@@ -121,6 +105,7 @@
         </div>
         <!-- End News & Updates -->
       </section>
+      {% endblock %}
     </main>
     <!-- End #main -->
 
