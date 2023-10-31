@@ -9,9 +9,6 @@ class AbstractPersona(models.Model):
         abstract = True
         ordering = ['nombre', 'apellido']
 
-    def __str__(self):
-        return f'{self.nombre} {self.apellido}'
-
 
 class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
@@ -21,6 +18,9 @@ class Alumno(AbstractPersona):
 
 class Docente(AbstractPersona):
     cuil = models.CharField(max_length=11, unique=True)
+
+    def __str__(self):
+        return f'{self.nombre} {self.apellido} - {self.cuil}'
 
 
 class Ascesor(AbstractPersona):

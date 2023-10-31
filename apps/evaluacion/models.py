@@ -10,6 +10,9 @@ class ComicionDeSeguimiento(models.Model):
     class Meta:
         ordering = ['fechaDeComicion']
 
+    def __str__(self):
+        return f'{self.nroResolucion}'
+
 
 class TribunalEvaluador(models.Model):
     nroResolucion = models.CharField(max_length=15, unique=True)
@@ -31,7 +34,7 @@ class IntegrantesTribunal(models.Model):
 
 
 class IntegrantesComicion(models.Model):
-    nroResolucionComicion = models.CharField(max_length=15)
+    nroResolucionComicion = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
     integrante = models.ForeignKey(Docente, on_delete=models.CASCADE)
 
 
@@ -57,6 +60,6 @@ class InformeEvaluacionPTF(AbstractInforme):
 
 
 class InformeEvaluacionFormalPTF(AbstractInforme):
-    plazoObservacion = models.DateField().blank = True
+    plazoObservacion = models.DateField(blank=True, null=True)
     comicionSeguimiento = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
     proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)

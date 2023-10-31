@@ -1,3 +1,4 @@
+{% extends 'base/base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>{% block title %}Asignar Docente a Comicion {% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +44,7 @@
 
 
     <main id="main" class="main">
-
+            {% block content %}
 
         <section class="section dashboard">
             <div class="row">
@@ -58,19 +59,14 @@
                           <h5 class="card-title">Asignar de Docente a Comición</h5>
             
                           <!-- Vertical Form -->
-                          <form class="row g-3">
-                            <div class="col-12">
-                              <label for="nroResolucion" class="form-label">Nro de Resolución</label>
-                          <input type="text" class="form-control" id="nroResolucion" placeholder="ejemplo: ">
-                          </div> 
-                           <div class="col-12">
-                            <label for="cuil" class="form-label">Cuil</label>
-                            <input type="text" class="form-control" id="cuil" placeholder="ejemplo: 20-37945789-7">
-                          </div>    
-                          <div class="col-12">
-                            <label for="fechaAlta" >Fecha de Alta</label>
-                            <input type="date" class="form-control" id="fechaAlta">
-                          </div>   
+                          <form class="row g-3" method="post" enctype="multipart/form-data">
+
+                            {% for field in form %}
+                              <div>
+                                   {{field.errors}} {{field.label_tag}} {{field}}
+                              </div>
+                            <br>
+                              {% endfor %} {% csrf_token %}
                         <div class="text-center">
                               <button type="submit" class="btn btn-primary">Asignar</button>
                         </div>
@@ -84,7 +80,7 @@
                   </div>
                 </div><!-- End News & Updates -->
           </section>
-      
+                {% endblock %}
         </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
