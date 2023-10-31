@@ -1,3 +1,4 @@
+{% extends 'base/base.html'%}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Registrar Trabajo Final</title>
+  <title>{% block title %}Registrar Trabajo Final{% endblock %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -43,7 +44,7 @@
 
 
     <main id="main" class="main">
-
+  {% block content %}
 
         <section class="section dashboard">
             <div class="row">
@@ -58,44 +59,19 @@
                           <h5 class="card-title">Registrar Trabajo Final</h5>
             
                           <!-- Vertical Form -->
-                          <form class="row g-3">
-                            <div class="col-12">
-                              <label for="titulo" class="form-label">Titulo</label>
-                          <input type="text" class="form-control" id="titulo">
-                          </div>
-                          <div class="col-12">
-                            <label for="fechaPresentacion" class="form-label">Fecha de Presentación</label>
-                            <input type="date" class="form-control" id="fechaPresentacion">
-                          </div>
-                          <div class="col-12">
-                            <label for="observacion" class="col-sm-2 col-form-label">Descripción</label>
-                            <textarea class="form-control" style="height: 100px" id="observacion"></textarea>
-                          </div>
-                          <div class="col-12">
-                            <label for="file">Archivos Adjuntos</label>
-                            <input class="form-control" type="file" id="file">
-                          </div>   
-                           <div class="col-12">
-                            <label for="nroResolucionTrib" class="form-label">Nro Resolución de Tribunal</label>
-                            <input type="text" class="form-control" id="nroResolucionTrib" placeholder="ejemplo: ">
-                          </div>
-                
-                          <div class="col-12">
-                            <label for="cuilDirector" class="form-label">Cuil de Direcctor</label>
-                            <input type="text" class="form-control" id="cuilDirector" placeholder="ejemplo: 20-38555678-7">
-                          </div> 
-                          <div class="col-12">
-                            <label for="cuilCodirector" class="form-label">Cuil de Codirector</label>
-                            <input type="text" class="form-control" id="cuilCodirector" placeholder="ejemplo: 20-38555678-7">
-                          </div>
-                          <div class="col-12">
-                            <label for="cuilAscesor" class="form-label">Cuil de Ascesor</label>
-                            <input type="text" class="form-control" id="cuilAscesor" placeholder="ejemplo: 20-38555678-7">
-                          </div>
+                          <form class="row g-3" method="post" enctype="multipart/form-data">
 
-                        <div class="text-center">
+                             {% for field in form %}
+                            <div>
+                                {{field.errors}} {{field.label_tag}} {{field}}
+                            </div>
+                            <br>
+                            {% endfor %} {% csrf_token %}
+
+                            <div class="text-center">
                               <button type="submit" class="btn btn-primary">Registrar</button>
-                        </div>
+                            </div>
+
                           </form><!-- Vertical Form -->
             
                         </div>
@@ -106,7 +82,7 @@
                   </div>
                 </div><!-- End News & Updates -->
           </section>
-      
+      {% endblock %}
         </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

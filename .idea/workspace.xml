@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="46e551f9-1bee-4e53-b6e4-15ea3247d66b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/evaluacion/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/evaluacion/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/templates/evaluacion/asignaDocenteComicion.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/evaluacion/templates/evaluacion/asignaDocenteComicion.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/templates/evaluacion/registrarInformeEvFormal.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/evaluacion/templates/evaluacion/registrarInformeEvFormal.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/evaluacion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/evaluacion/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/persona/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/persona/templates/persona/registroAlumnos.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/persona/templates/persona/registroAlumnos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/proyecto/templates/proyecto/registrarTF.html" beforeDir="false" afterPath="$PROJECT_DIR$/apps/proyecto/templates/proyecto/registrarTF.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
