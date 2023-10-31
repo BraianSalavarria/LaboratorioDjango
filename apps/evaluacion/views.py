@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render
 from .forms import ComicionForm,TribunalForm
+from .models import TribunalEvaluador
 
 
 def registrar_comicion(request):
@@ -44,4 +45,5 @@ def registrar_evaluacion_tf(request):
 
 
 def listar_tribunales(request):
-    return render(request,'evaluacion/listaTribunales.html')
+    listado_tribunales = TribunalEvaluador.objects.all()
+    return render(request,'evaluacion/listaTribunales.html',{'listado':listado_tribunales})
