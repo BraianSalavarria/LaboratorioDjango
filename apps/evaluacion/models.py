@@ -21,7 +21,8 @@ class TribunalEvaluador(models.Model):
     class Meta:
         ordering = ['fechaTribunal']
 
-
+    def __str__(self) -> str:
+        return self.nroResolucion
 class IntegrantesTribunal(models.Model):
     nroResolucionTribunal = models.ForeignKey(TribunalEvaluador, on_delete=models.CASCADE)
     TIPO_OPCIONES = (
