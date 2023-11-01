@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Movimientos</title>
+    <title>{% block title%}Movimientos{% endblock %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -67,6 +67,7 @@
 
   <body>
     <main id="main" class="main">
+      {% block content %}
       <section class="section dashboard">
         <div class="row">
           <!-- Left side columns -->
@@ -77,62 +78,18 @@
                   <h5 class="card-title">Asignar Movimiento a Trabajo Final</h5>
 
                   <!-- Vertical Form -->
-                  <form class="row g-3">
+                  <form
+                    class="row g-3"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    {% for field in form %}
                     <div class="col-12">
-                      <label for="nroTF" class="form-label"
-                        >Nro de Trabajo Final</label
-                      >
-                      <input type="text" class="form-control" id="nroTF" />
+                      {{field.errors}} {{field.label_tag}} {{field}}
                     </div>
-                    <div class="col-12">
-                      <label class="col-sm-2 col-form-label" for="Movimientos"
-                        >Estado</label
-                      >
-                      <select
-                        class="form-select"
-                        aria-label="Default select example"
-                        id="Movimientos"
-                      >
-                        <option selected>Aceptado</option>
-                        <option value="PROYECTO_PRESENTADO">
-                          Proyecto Presentado - Esperando Evaluacion por CSTF
-                        </option>
-                        <option value="PROYECTO_EVALUADO_POR_CSTF">
-                          Proyectado Evaluado por la CSTF
-                        </option>
-                        <option value="PROYECTO_EN_EVALUACION_POR_EL_TRIBUNAL">
-                          Proyecto en Evaluacion por el Tribunal
-                        </option>
-                        <option value="PROYECTO_EVALUADO_POR_EL_TRIBUNAL">
-                          Proyecto Evaluado por el Tribunal
-                        </option>
-                        <option value="PROYECTO_APROBADO">
-                          Proyecto Aprobado
-                        </option>
-                      </select>
-                    </div>
-                    <div class="col-12">
-                      <label for="fechaMovimiento">Fecha del Movimiento</label>
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="fechaMovimiento"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="fechaVencimientoMovimiento"
-                        >Fecha de Vencimiento del Movimiento</label
-                      >
-                      <input
-                        type="date"
-                        class="form-control"
-                        id="fechaVencimientoMovimiento"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="file">Archivos Adjuntos (opcional)</label>
-                      <input class="form-control" type="file" id="file" />
-                    </div>
+
+                    {% endfor %} {% csrf_token %}
+
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">
                         Registrar Movimiento
@@ -148,6 +105,7 @@
         </div>
         <!-- End News & Updates -->
       </section>
+      {% endblock %}
     </main>
     <!-- End #main -->
 

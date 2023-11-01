@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from .forms import RegistrarProyectoTrabajoFinal,AsignarAlumnoAPTFForm
+from .forms import RegistrarProyectoTrabajoFinal,AsignarAlumnoAPTFForm,MovimientosForm
 import logging
-
+from apps.persona.models import Alumno
+from apps.proyecto.models import ProyectoTrabajoFinal,IntegrantesPTF
+from datetime import date
 logger = logging.getLogger(__name__)
 
 
@@ -29,15 +31,37 @@ def asignar_alumno_tf(request):
 
 
 def dar_baja_alumno_tf(request):
-    return render(request, 'proyecto/bajaAlumnoTF.html')
+    ALUMNOS = Alumno.objects.all()
+    PROYECTOS = ProyectoTrabajoFinal.objects.all()
+    if request.method == 'POST':
+        proyecto_id = request.POST['proyecto']
+        alumno_id = request.POST['alumno']
+        proyecto = IntegrantesPTF.objects.filter(proyectoTrabajoFinal=proyecto_id,integrante=alumno_id).first()
+        if proyecto != None:
+            proyecto.fechaBaja = date.today()
+            proyecto.save()
+        logger.debug(proyecto)
+        
+    return render(request, 'proyecto/bajaAlumnoTF.html',{'alumnos':ALUMNOS,'proyectos':PROYECTOS})
 
 
 def registrar_movimiento_tf(request):
-    return render(request, 'proyecto/asignaMovimientoTF.html')
+    if request.method == 'POST':
+        movimiento_form = MovimientosForm(request.POST,request.FILES)
+        if movimiento_form.is_valid():
+            movimiento_form.save(commit=True)
+            movimiento = request.POST['movimiento']
+            proyecto_id = request.POST['proyectoTrabajoFinal']
+            proyecto = ProyectoTrabajoFinal.objects.get(pk=proyecto_id)
+            logger.debug(f'Se ha registrado el movimiento {movimiento} en el proyecto {proyecto}')
+    else:
+        movimiento_form = MovimientosForm()
+    return render(request, 'proyecto/asignaMovimientoTF.html',{'form':movimiento_form})
 
 
 def listar_tf(request):
-    return render(request, 'proyecto/listaTF.html')
+    PROYECTOS = ProyectoTrabajoFinal.objects.all()
+    return render(request, 'proyecto/listaTF.html',{'proyectos':PROYECTOS})
 
 
 

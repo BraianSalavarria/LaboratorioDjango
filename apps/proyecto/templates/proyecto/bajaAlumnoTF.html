@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Baja Alumno TF</title>
+    <title>{% block title %}Baja Alumno TF{% endblock %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -67,6 +67,7 @@
 
   <body>
     <main id="main" class="main">
+      {% block content %}
       <section class="section dashboard">
         <div class="row">
           <!-- Left side columns -->
@@ -77,38 +78,37 @@
                   <h5 class="card-title">Daja de Alumno al Trabajo Final</h5>
 
                   <!-- Vertical Form -->
-                  <form class="row g-3">
+                  <form
+                    class="row g-3"
+                    method="post"
+                    action="{% url 'proyecto:dar_baja_alumno_tf' %}"
+                  >
                     <div class="col-12">
-                      <label for="nroTF" class="form-label"
-                        >Nro de Trabajo Final</label
+                      <label for="proyecto" class="form-label" name="proyecto"
+                        >Proyectos</label
                       >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="nroTF"
-                        placeholder="ejemplo: "
-                      />
+                      <select class="form-control" id="alumno" name="proyecto">
+                        {% for proyecto in proyectos %}
+                        <option value="{{proyecto.id}}">{{proyecto}}</option>
+                        {% endfor %}
+                      </select>
                     </div>
                     <div class="col-12">
-                      <label for="matricula" class="form-label"
-                        >Matricula</label
+                      <label for="alumno" class="form-label" name="alumno"
+                        >Alumno</label
                       >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="matricula"
-                        placeholder="ejemplo: 01267"
-                      />
-                    </div>
-                    <div class="col-12">
-                      <label for="fechaAlta">Fecha de Baja</label>
-                      <input type="date" class="form-control" id="fechaAlta" />
+                      <select class="form-control" id="alumno" name="alumno">
+                        {% for alumno in alumnos %}
+                        <option value="{{alumno.id}}">{{alumno}}</option>
+                        {% endfor %}
+                      </select>
                     </div>
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">
                         Dar de Baja
                       </button>
                     </div>
+                    {% csrf_token %}
                   </form>
                   <!-- Vertical Form -->
                 </div>
@@ -119,6 +119,7 @@
         </div>
         <!-- End News & Updates -->
       </section>
+      {% endblock %}
     </main>
     <!-- End #main -->
 

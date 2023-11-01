@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from .models import ComicionDeSeguimiento, IntegrantesComicion, InformeEvaluacionFormalPTF,TribunalEvaluador,IntegrantesTribunal,InformeEvaluacionPTF
+from .models import ComicionDeSeguimiento, IntegrantesComicion,TribunalEvaluador,IntegrantesTribunal
+from apps.proyecto.models import InformeEvaluacionFormalPTF,InformeEvaluacionPTF
 from django import forms
 
 
@@ -19,7 +20,11 @@ class ComicionForm(ModelForm):
         model = ComicionDeSeguimiento
         fields = ('nroResolucion', 'fechaDeComicion')
 
-    fechaDeComicion = forms.DateInput()
+    #fechaDeComicion = forms.DateInput()
+        labels = {
+            'nroResolucion':'Número de resolución',
+            'fechaDeComicion':'Fecha de comision'
+        }
 
 
 class IntegrantesComicionForm(ModelForm):
@@ -52,12 +57,22 @@ class InformeEvaluacionFormalPTFForm(ModelForm):
                 'class': 'form-control'
             }
         )
+        self.fields['comicionSeguimiento'].widget.attrs.update({"class": "form-control"})
         self.fields['proyectoTrabajoFinal'].widget.attrs.update({"class": "form-control"})
 
     class Meta:
         model = InformeEvaluacionFormalPTF
-        fields = ('estado', 'fechaInforme', 'observacion', 'plazoObservacion',
+        fields = ('estado', 'fechaInforme', 'observacion', 'plazoObservacion','comicionSeguimiento',
                   'proyectoTrabajoFinal')
+        
+        labels = {
+            'estado':'Estado',
+            'fechaInforme':'Fecha de informe',
+            'observacion':'Observacion',
+            'plazoObservacion':'Plazo de observacion',
+            'comicionSeguimiento':'Comision de seguimiento',
+            'proyectoTrabajoFinal':'Proyecto'
+        }
 
 class TribunalForm(ModelForm):
 
@@ -75,6 +90,10 @@ class TribunalForm(ModelForm):
         model = TribunalEvaluador
         fields = ('nroResolucion', 'fechaTribunal')
         
+        labels = {
+            'nroResolucion':'Nro resolucion',
+            'fechaTribunal':'Fecha de tribunal'
+        }
     fechaTribunal = forms.DateInput()
 
 class AsignarDocenteForm(ModelForm):
@@ -87,6 +106,12 @@ class AsignarDocenteForm(ModelForm):
     class Meta:
         model = IntegrantesTribunal
         fields = ('nroResolucionTribunal','integrante','tipo')
+        
+        labels = {
+            'nroResolucionTribunal':'Nro resolucion',
+            'integrante':'Docente',
+            'tipo':'Rol'
+        }
 
 class RegistrarInformeEvTFForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -99,10 +124,17 @@ class RegistrarInformeEvTFForm(ModelForm):
                 }
             )
         self.fields["estado"].widget.attrs.update({"class": "form-control"})
-        self.fields["tribunalElavaluador"].widget.attrs.update({"class": "form-control"})
         self.fields["proyectoTrabajoFinal"].widget.attrs.update({"class": "form-control"})
         self.fields["archivosAdjuntos"].widget.attrs.update({"class": "form-control"})
 
     class Meta:
         model = InformeEvaluacionPTF
-        fields = ('observacion', 'fechaInforme','estado','tribunalElavaluador','proyectoTrabajoFinal','archivosAdjuntos')
+        fields = ('observacion', 'fechaInforme','estado','proyectoTrabajoFinal','archivosAdjuntos')
+        
+        labels = {
+            'observacion':'Observacion',
+            'fechaInforme':'Fecha de informe',
+            'estado':'Estado',
+            'proyectoTrabajoFinal':'Proyecto',
+            'archivosAdjuntos':'Archivo adjunto'
+        }

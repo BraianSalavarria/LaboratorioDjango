@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Lista de Trabajos</title>
+    <title>{% block title %}Lista de Trabajos{% endblock %}</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
 
@@ -67,6 +67,7 @@
 
   <body>
     <main id="main" class="main">
+      {% block content %}
       <section class="section dashboard">
         <div class="row">
           <!-- Left side columns -->
@@ -83,11 +84,36 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th scope="col">Nro Trabajos</th>
-                            <th scope="col">Fecha</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Fecha Presentacion</th>
+                            <th scope="col">Tribunal</th>
+                            <th scope="col">Director</th>
+                            <th scope="col">Co-Director</th>
+                            <th scope="col">Asesor</th>
+                            <th scope="col">Archivo</th>
                           </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody>
+                          {% for proyecto in proyectos %}
+                          <tr>
+                            <th scope="col">{{proyecto.titulo}}</th>
+                            <th scope="col">{{proyecto.fechaPresentacion}}</th>
+                            <th scope="col">
+                              {{proyecto.NroResolucionTribunal}}
+                            </th>
+                            <th scope="col">{{proyecto.director}}</th>
+                            <th scope="col">{{proyecto.coDirector}}</th>
+                            <th scope="col">{{proyecto.ascesor}}</th>
+                            <th scope="col">
+                              <a
+                                href="http://localhost:8000/{{ proyecto.archivosAdjuntos }}"
+                                download
+                                >Descargar archivo PDF</a
+                              >
+                            </th>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
                       </table>
                       <!-- End Table with stripped rows -->
                       <div class="text-center">
@@ -106,6 +132,7 @@
         </div>
         <!-- End News & Updates -->
       </section>
+      {% endblock %}
     </main>
     <!-- End #main -->
 

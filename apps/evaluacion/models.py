@@ -1,6 +1,6 @@
 from django.db import models
-from apps.proyecto.models import ProyectoTrabajoFinal
 from apps.persona.models import Docente
+
 
 
 class ComicionDeSeguimiento(models.Model):
@@ -39,28 +39,4 @@ class IntegrantesComicion(models.Model):
     integrante = models.ForeignKey(Docente, on_delete=models.CASCADE)
 
 
-class AbstractInforme(models.Model):
-    ESTADO_OPCIONES = (
-        ('ACEPTADO', 'Aceptado'),
-        ('RECHAZADO', 'Rechazado'),
-        ('OBSERVADO', 'Observado')
-    )
-    observacion = models.TextField(max_length=500)
-    fechaInforme = models.DateField()
-    estado = models.CharField(max_length=10, choices=ESTADO_OPCIONES)
 
-    class Meta:
-        abstract = True
-        ordering = ['fechaInforme']
-
-
-class InformeEvaluacionPTF(AbstractInforme):
-    tribunalElavaluador = models.ForeignKey(TribunalEvaluador, on_delete=models.CASCADE)
-    proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)
-    archivosAdjuntos = models.FileField(upload_to='Files/ArchivosDeInformes/', blank=False, null=False, default=None)
-
-
-class InformeEvaluacionFormalPTF(AbstractInforme):
-    plazoObservacion = models.DateField(blank=True, null=True)
-    comicionSeguimiento = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
-    proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)

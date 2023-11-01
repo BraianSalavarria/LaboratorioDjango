@@ -76,7 +76,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
       </div>
       <!-- End Logo -->
-
+      <!--
       <div class="search-bar">
         <form
           class="search-form d-flex align-items-center"
@@ -94,7 +94,7 @@
           </button>
         </form>
       </div>
-      <!-- End Search Bar -->
+       End Search Bar -->
 
       <nav class="header-nav ms-auto">
         <ul class="d-flex align-items-center">
@@ -172,7 +172,7 @@
             </li>
             <li>
               <a href="{% url 'persona:registrar_ascesor' %}">
-                <i class="bi bi-circle"></i><span>Registrar Ascesor</span>
+                <i class="bi bi-circle"></i><span>Registrar Asesor</span>
               </a>
             </li>
             <li>
@@ -182,7 +182,7 @@
             </li>
             <li>
               <a href="{% url 'persona:dar_baja_ascesor' %}">
-                <i class="bi bi-circle"></i><span>Dar de Baja Ascesor</span>
+                <i class="bi bi-circle"></i><span>Dar de Baja Asesor</span>
               </a>
             </li>
           </ul>
@@ -290,18 +290,18 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'proyecto:registrar_trabajo_final' %}">
+              <a href="{% url 'proyecto:dar_baja_alumno_tf' %}">
                 <i class="bi bi-circle"></i
                 ><span>Dar de Baja Alumno del TF</span>
               </a>
             </li>
             <li>
-              <a href="{% url 'proyecto:registrar_trabajo_final' %}">
+              <a href="{% url 'proyecto:registrar_movimiento_tf' %}">
                 <i class="bi bi-circle"></i><span>Asignar Movimiento</span>
               </a>
             </li>
             <li>
-              <a href="{% url 'proyecto:registrar_trabajo_final' %}">
+              <a href="{% url 'proyecto:listar_tf' %}">
                 <i class="bi bi-circle"></i><span>Lista de TF</span>
               </a>
             </li>
@@ -332,7 +332,7 @@
           </div>
         </div>
       </section>
-      <div style="text-align: center">{% block content %} {% endblock %}</div>
+      <div>{% block content %} {% endblock %}</div>
     </main>
     <!-- End #main -->
 

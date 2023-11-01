@@ -46,7 +46,7 @@ def dar_baja_alumno(request):
         if 'dni' in request.POST:
             alumno = get_object_or_404(Alumno, dni=request.POST['dni'])
             alumno.delete()
-            mensaje = f'Operación exitosa'
+            mensaje = 'Operación exitosa'
     return render(request, 'persona/darBajaAlumno.html', {'mensaje': mensaje})
 
 
