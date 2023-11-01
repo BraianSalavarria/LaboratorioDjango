@@ -77,23 +77,6 @@
       </div>
       <!-- End Logo -->
 
-      <div class="search-bar">
-        <form
-          class="search-form d-flex align-items-center"
-          method="POST"
-          action="#"
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search"
-            title="Enter search keyword"
-          />
-          <button type="submit" title="Search">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
-      </div>
       <!-- End Search Bar -->
 
       <nav class="header-nav ms-auto">
@@ -240,23 +223,23 @@
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="#">
+              <a href="{% url 'evaluacion:registrar_tribunal' %}">
                 <i class="bi bi-circle"></i><span>Registrar Tribunal</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{% url 'evaluacion:asignar_docente_tribunal' %}">
                 <i class="bi bi-circle"></i><span>Asignar Docente</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{% url 'evaluacion:registrar_evaluacion_tf' %}">
                 <i class="bi bi-circle"></i
                 ><span>Registrar Evaluacion Formal</span>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{% url 'evaluacion:lista_tribunales' %}">
                 <i class="bi bi-circle"></i><span>Lista de Tribunales</span>
               </a>
             </li>
@@ -317,7 +300,7 @@
         <h1>Dashboard</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="base.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
           </ol>
         </nav>

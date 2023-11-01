@@ -1,5 +1,5 @@
-from django.forms import ModelForm
-from .models import ComicionDeSeguimiento, IntegrantesComicion, InformeEvaluacionFormalPTF
+from django.forms import ModelForm,Form
+from .models import ComicionDeSeguimiento,TribunalEvaluador, InformeEvaluacionPTF,IntegrantesTribunal
 from django import forms
 
 
@@ -40,6 +40,28 @@ class InformeEvaluacionFormalPTFForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['observacion'].widget.attrs.update({"class": "form-control"})
         self.fields['estado'].widget.attrs.update({"class": "form-control"})
+class TribunalForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["nroResolucion"].widget.attrs.update({"class": "form-control"})
+        self.fields['fechaTribunal'].widget = forms.widgets.DateInput(
+            attrs={
+                'type': 'date', 'placeholder': 'dd-mm-yyyy',
+                'class': 'form-control'
+                }
+            )
+
+    class Meta:
+        model = TribunalEvaluador
+        fields = ('nroResolucion', 'fechaTribunal')
+        
+    fechaTribunal = forms.DateInput()
+    
+class RegistrarInformeEvTFForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["observacion"].widget.attrs.update({"class": "form-control"})
         self.fields['fechaInforme'].widget = forms.widgets.DateInput(
             attrs={
                 'type': 'date', 'placeholder': 'dd-mm-yyyy',
