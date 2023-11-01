@@ -23,7 +23,7 @@ class TribunalEvaluador(models.Model):
 
 
 class IntegrantesTribunal(models.Model):
-    nroResolucionTribunal = models.CharField(max_length=15)
+    nroResolucionTribunal = models.ForeignKey(TribunalEvaluador, on_delete=models.CASCADE)
     TIPO_OPCIONES = (
         ('PRESIDENTE', 'Presidente'),
         ('VOCAL_TITULAR', 'Vocal Titular'),
@@ -34,7 +34,7 @@ class IntegrantesTribunal(models.Model):
 
 
 class IntegrantesComicion(models.Model):
-    nroResolucionComicion = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
+    nroResolucioncomicion = models.ForeignKey(ComicionDeSeguimiento, on_delete=models.CASCADE)
     integrante = models.ForeignKey(Docente, on_delete=models.CASCADE)
 
 

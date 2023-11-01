@@ -26,12 +26,12 @@ class IntegrantesComicionForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['nroResolucionComicion'].widget.attrs.update({"class": "form-control"})
+        self.fields['nroResolucioncomicion'].widget.attrs.update({"class": "form-control"})
         self.fields['integrante'].widget.attrs.update({"class": "form-control"})
 
     class Meta:
         model = IntegrantesComicion
-        fields = ('nroResolucionComicion', 'integrante')
+        fields = ('nroResolucioncomicion', 'integrante')
 
 
 class InformeEvaluacionFormalPTFForm(ModelForm):
