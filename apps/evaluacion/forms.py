@@ -52,12 +52,11 @@ class InformeEvaluacionFormalPTFForm(ModelForm):
                 'class': 'form-control'
             }
         )
-        self.fields['comicionSeguimiento'].widget.attrs.update({"class": "form-control"})
         self.fields['proyectoTrabajoFinal'].widget.attrs.update({"class": "form-control"})
 
     class Meta:
         model = InformeEvaluacionFormalPTF
-        fields = ('estado', 'fechaInforme', 'observacion', 'plazoObservacion', 'comicionSeguimiento',
+        fields = ('estado', 'fechaInforme', 'observacion', 'plazoObservacion',
                   'proyectoTrabajoFinal')
 
 class TribunalForm(ModelForm):

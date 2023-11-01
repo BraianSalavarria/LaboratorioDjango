@@ -14,6 +14,9 @@ class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
     matricula = models.CharField(unique=True)
     correoElectronico = models.EmailField(max_length=256, blank=False, null=False)
+    
+    def __str__(self) -> str:
+        return f'{self.nombre} {self.apellido} - {self.matricula}'
 
 
 class Docente(AbstractPersona):
@@ -26,3 +29,6 @@ class Docente(AbstractPersona):
 class Ascesor(AbstractPersona):
     cuil = models.CharField(max_length=11, unique=True)
     curriculum = models.FileField(upload_to='Files/CurriculumAscesor/')
+    
+    def __str__(self) -> str:
+        return f'{self.nombre} {self.apellido} - {self.cuil}'
