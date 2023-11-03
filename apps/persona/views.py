@@ -9,19 +9,19 @@ from .models import Alumno, Docente, Ascesor
 import logging
 logger = logging.getLogger(__name__)
 
-def generar_username(palabra1, palabra2):
-    primera_letra = palabra1[0].lower()
-    username = primera_letra + palabra2
+def generar_username(nombre, apellido):
+    primera_letra = nombre[0].lower()
+    username = primera_letra + apellido
     return username
 
 def generar_password(longitud):
-    caracteres_validos = string.ascii_letters + string.digits + string.punctuation  # Caracteres válidos
+    caracteres_validos = string.ascii_letters + string.digits
     password = ''.join(random.choice(caracteres_validos) for _ in range(longitud))
     return password
 
-def enviarEmail(destinatario,usuario,password):
+def enviar_email(destinatario,usuario,password):
     subject = 'Nuevo usuario'
-    message = f'Bienvenid@, tu usuario es {usuario} y tu contraseña es: {password}'
+    message = f'Bienvenido/a al sistema Gestion TF, tus credenciales de acceso son: Usuario: {usuario} , Contraseña: {password}'
     from_email = 'comision.unca@hotmail.com'
     recipient_list = [destinatario]
     send_mail(subject, message, from_email, recipient_list)
@@ -43,7 +43,7 @@ def registrar_alumno(request):
             logger.debug(nuevo_alumno)
             nuevo_alumno.user = user
             nuevo_alumno.save()
-            enviarEmail(nuevo_alumno.correoElectronico,username, password)
+            enviar_email(nuevo_alumno.correoElectronico,username, password)
             messages.success(request, f'se ha registrado el alumno {nuevo_alumno} correctamente')
     else:
         registrar_alumno_form = AlumnoForm()
@@ -53,9 +53,17 @@ def registrar_alumno(request):
 def registrar_docente(request):
     nuevo_docente = None
     if request.method == 'POST':
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        username = generar_username(nombre, apellido)
+        password = generar_password(10)
         registrar_docente_form = DocenteForm(request.POST)
         if registrar_docente_form.is_valid():
+            user = User.objects.create_user(username,password= password)
             nuevo_docente = registrar_docente_form.save(commit=True)
+            nuevo_docente.user = user
+            nuevo_docente.save()
+            enviar_email(nuevo_docente.correoElectronico,username, password)
             messages.success(request, f'se ha registrado el docente {nuevo_docente} correctamente')
     else:
         registrar_docente_form = DocenteForm()     

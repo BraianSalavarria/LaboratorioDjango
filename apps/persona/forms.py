@@ -25,11 +25,12 @@ class DocenteForm(ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["nombre"].widget.attrs.update({"class": "form-control"})
         self.fields["apellido"].widget.attrs.update({"class": "form-control"})
+        self.fields["correoElectronico"].widget.attrs.update({"class": "form-control"})
         self.fields["cuil"].widget.attrs.update({"class": "form-control"})
 
     class Meta:
         model = Docente
-        fields = ('nombre', 'apellido', 'cuil')
+        fields = ('nombre', 'apellido','correoElectronico', 'cuil')
 
 
 class AsesorForm(ModelForm):
