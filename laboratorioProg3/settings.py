@@ -147,3 +147,5 @@ LOGGING = {
         'level': 'DEBUG',  # Configura el nivel de registro global
     },
 }
+
+LOGIN_REDIRECT_URL = '/'

@@ -1,15 +1,41 @@
+import random
+import string
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .forms import AlumnoForm, DocenteForm, AsesorForm
 from .models import Alumno, Docente, Ascesor
+import logging
+logger = logging.getLogger(__name__)
+
+def generar_username(palabra1, palabra2):
+    primera_letra = palabra1[0].lower()
+    username = primera_letra + palabra2
+    return username
+
+def generar_password(longitud):
+    caracteres_validos = string.ascii_letters + string.digits + string.punctuation  # Caracteres válidos
+    password = ''.join(random.choice(caracteres_validos) for _ in range(longitud))
+    return password
 
 
 def registrar_alumno(request):
     nuevo_alumno = None
     if request.method == 'POST':
+        nombre = request.POST['nombre']
+        apellido = request.POST['apellido']
+        username = generar_username(nombre, apellido)
+        logger.debug(f'Username generado: {username}')
+        password = generar_password(10)
+        logger.debug(f'Password generada: {password}')
         registrar_alumno_form = AlumnoForm(request.POST)
         if registrar_alumno_form.is_valid():
+            user = User.objects.create_user(username,password= password)
+            logger.debug(f'User: {user}')
             nuevo_alumno = registrar_alumno_form.save(commit=True)
+            logger.debug(nuevo_alumno)
+            nuevo_alumno.user = user
+            nuevo_alumno.save()
             messages.success(request, f'se ha registrado el alumno {nuevo_alumno} correctamente')
     else:
         registrar_alumno_form = AlumnoForm()

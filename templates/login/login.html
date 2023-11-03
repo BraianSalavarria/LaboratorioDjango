@@ -77,7 +77,6 @@
               >
                 <div class="d-flex justify-content-center py-4">
                   <img src={% static "assets/img/logo.png" %} alt="" />
-                  <span class="d-none d-lg-block">Gestor TF</span>
                   
                 </div>
                 <!-- End Logo -->
@@ -89,11 +88,13 @@
                         Iniciar sesion
                       </h5>
                       <p class="text-center small">
-                        Ingresa tu usuario & contraseña
+                        
+                        Ingresa tu usuario y contraseña
+                        
                       </p>
                     </div>
 
-                    <form class="row g-3 needs-validation" novalidate>
+                    <form class="row g-3 needs-validation" novalidate method="post">
                       <div class="col-12">
                         <label for="yourUsername" class="form-label"
                           >Usuario</label
@@ -124,9 +125,10 @@
                           required
                         />
                         <div class="invalid-feedback">
-                          Por favor ingrese su contraseña!
+                          Por favor ingrese su contraseña !
                         </div>
                       </div>
+                      {% csrf_token %}
                       <div class="col-12">
                         <button class="btn btn-primary w-100" type="submit">
                           Iniciar sesion

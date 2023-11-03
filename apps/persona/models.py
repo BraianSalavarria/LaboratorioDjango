@@ -1,14 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class AbstractPersona(models.Model):
     nombre = models.CharField(max_length=80)
     apellido = models.CharField(max_length=90)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 
     class Meta:
         abstract = True
         ordering = ['nombre', 'apellido']
 
+    def add_user(self,user):
+        self.user = user
 
 class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
