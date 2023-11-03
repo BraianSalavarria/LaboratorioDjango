@@ -149,3 +149,10 @@ LOGGING = {
 }
 
 LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'  # Servidor SMTP de Outlook
+EMAIL_PORT = 587  # Puerto de correo saliente
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'comision.unca@hotmail.com'  # Tu dirección de correo electrónico de Outlook
+EMAIL_HOST_PASSWORD = 'com2023unca'

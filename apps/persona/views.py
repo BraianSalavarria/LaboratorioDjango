@@ -1,5 +1,6 @@
 import random
 import string
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
@@ -18,6 +19,12 @@ def generar_password(longitud):
     password = ''.join(random.choice(caracteres_validos) for _ in range(longitud))
     return password
 
+def enviarEmail(destinatario,usuario,password):
+    subject = 'Nuevo usuario'
+    message = f'Bienvenid@, tu usuario es {usuario} y tu contraseña es: {password}'
+    from_email = 'comision.unca@hotmail.com'
+    recipient_list = [destinatario]
+    send_mail(subject, message, from_email, recipient_list)
 
 def registrar_alumno(request):
     nuevo_alumno = None
@@ -36,6 +43,7 @@ def registrar_alumno(request):
             logger.debug(nuevo_alumno)
             nuevo_alumno.user = user
             nuevo_alumno.save()
+            enviarEmail(nuevo_alumno.correoElectronico,username, password)
             messages.success(request, f'se ha registrado el alumno {nuevo_alumno} correctamente')
     else:
         registrar_alumno_form = AlumnoForm()
