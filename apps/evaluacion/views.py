@@ -1,7 +1,11 @@
 from django.contrib import messages
+from django.contrib.auth.models import User, Group, Permission
 from django.shortcuts import render
 from .forms import ComicionForm, IntegrantesComicionForm, InformeEvaluacionFormalPTFForm,TribunalForm,AsignarDocenteForm,RegistrarInformeEvTFForm
 from .models import TribunalEvaluador
+from apps.persona.models import Docente
+import logging
+logger = logging.getLogger(__name__)
 
 def registrar_comicion(request):
     nueva_comicion = None
@@ -14,12 +18,29 @@ def registrar_comicion(request):
         registrar_comicion_form = ComicionForm()
     return render(request, 'evaluacion/registroComicion.html', {'form': registrar_comicion_form})
 
+def obtener_grupo(nombre):
+    grupo = Group.objects.get(name=nombre)
+    logger.debug(f'Obteniendo el grupo {grupo}')
+    logger.debug(f'Sus permisos son {grupo.permissions.all()}')
+    return grupo
 
 def asignar_docente_comicion(request):
+    group = obtener_grupo('comision')
     if request.method == 'POST':
         asignar_docente_comicion_form = IntegrantesComicionForm(request.POST)
         if asignar_docente_comicion_form.is_valid():
             asignar_docente_comicion_form.save(commit=True)
+            docente_id = request.POST['integrante']
+            tribunal_numero = request.POST['nroResolucioncomicion']
+            docente = Docente.objects.get(pk=docente_id)
+            tribunal = TribunalEvaluador.objects.get(pk=tribunal_numero)
+            logger.debug(f'El/la docente: {docente} fue agregado/a al tribunal {tribunal}')
+            user =docente.user
+            logger.debug(f'User: {user}')
+            logger.debug(f'Permisos: {user.user_permissions.all()} ')
+            user.groups.add(group)
+            logger.debug(f'Permisos: {user.user_permissions.all()} ')
+            user.save()
     else:
         asignar_docente_comicion_form = IntegrantesComicionForm()
 

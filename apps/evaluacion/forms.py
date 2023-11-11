@@ -37,6 +37,11 @@ class IntegrantesComicionForm(ModelForm):
     class Meta:
         model = IntegrantesComicion
         fields = ('nroResolucioncomicion', 'integrante')
+        
+        labels = {
+            'nroResolucioncomicion':'Nro de resolucion de comision',
+            'integrante':'Integrante'
+        }
 
 
 class InformeEvaluacionFormalPTFForm(ModelForm):
