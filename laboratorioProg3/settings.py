@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'laboratorioProg3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Gestor_PTF_Test2',
+        'NAME': 'Gestor_PTF',
         'USER': 'postgres',
         'PASSWORD': 'admin',
     }

@@ -1,17 +1,17 @@
 from django.db import models
-from apps.persona.models import Docente,Ascesor,Alumno
-from apps.evaluacion.models import TribunalEvaluador,ComicionDeSeguimiento
+from apps.persona.models import Alumno#,Docente,Ascesor,
+from apps.evaluacion.models import ComicionDeSeguimiento,ProyectoTrabajoFinal #,TribunalEvaluador
 from datetime import date
 
 # Create your models here.
 
-
+"""
 class ProyectoTrabajoFinal(models.Model):
 
     titulo = models.CharField(max_length=40, unique=True)
     fechaPresentacion = models.DateField(default=date.today)
     descripcion = models.TextField(max_length=500)
-    NroResolucionTribunal = models.ForeignKey(TribunalEvaluador,on_delete=models.CASCADE)
+    #NroResolucionTribunal = models.ForeignKey(TribunalEvaluador,on_delete=models.CASCADE)
     archivosAdjuntos = models.FileField(upload_to='Files/ArchivosDePTF/', blank=False, null=False, default=None)
     director = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name='director')
     coDirector = models.ForeignKey(Docente, on_delete=models.CASCADE, related_name='codirector')
@@ -22,7 +22,7 @@ class ProyectoTrabajoFinal(models.Model):
 
     def __str__(self) -> str:
         return f'{self.titulo}'
-
+"""
 class IntegrantesPTF(models.Model):
     proyectoTrabajoFinal = models.ForeignKey(ProyectoTrabajoFinal, on_delete=models.CASCADE)
     integrante = models.ForeignKey(Alumno, on_delete=models.CASCADE)

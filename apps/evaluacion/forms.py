@@ -84,6 +84,7 @@ class TribunalForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["nroResolucion"].widget.attrs.update({"class": "form-control"})
+        self.fields["trabajo_final"].widget.attrs.update({"class": "form-control"})
         self.fields['fechaTribunal'].widget = forms.widgets.DateInput(
             attrs={
                 'type': 'date', 'placeholder': 'dd-mm-yyyy',
@@ -93,10 +94,11 @@ class TribunalForm(ModelForm):
 
     class Meta:
         model = TribunalEvaluador
-        fields = ('nroResolucion', 'fechaTribunal')
+        fields = ('nroResolucion','trabajo_final', 'fechaTribunal')
         
         labels = {
             'nroResolucion':'Nro resolucion',
+            'trabajo_final':'Proyecto de trabajo final',
             'fechaTribunal':'Fecha de tribunal'
         }
     fechaTribunal = forms.DateInput()
