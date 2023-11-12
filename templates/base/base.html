@@ -193,7 +193,7 @@
         </li>
         <!-- End Docentes Nav -->
 
-        
+        {%  if perms.evaluacion.add_comiciondeseguimiento %}
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -227,6 +227,7 @@
             </li>
           </ul>
         </li>
+        {%  endif %}
         <!-- End Comision Nav -->
         
         <li class="nav-item">
@@ -268,7 +269,7 @@
           </ul>
         </li>
         <!-- End Tribunal Nav -->
-
+        {% if perms.evaluacion.add_proyectotrabajofinal %}
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -312,6 +313,7 @@
             </li>
           </ul>
         </li>
+        {% endif  %}
         <!-- End Trabajo Final Nav -->
       </ul>
     </aside>

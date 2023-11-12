@@ -10,21 +10,7 @@ logger = logging.getLogger(__name__)
 def home(request):
     if not request.user.is_authenticated:
         return redirect('/login')
-    username = request.user
-    user = User.objects.get(username=username)
-    logger.debug(f'Usuer: {user}')
-    objetos = list(Alumno.objects.filter(user=user)) + list(Docente.objects.filter(user=user))
-    logger.debug(f'Objetos: {objetos}')
-    persona = None
-    try:
-        persona = objetos[0]
-    except Exception as e:
-        logger.debug(f'Excepcion: {e}')
-    logger.debug(f'User: {user.username}')
-    if persona is not None:
-        logger.debug(f'Persona: {persona.nombre}')
-        return render(request, 'base/base.html',{'username':user.username,'nombre':persona.nombre,'apellido':persona.apellido})
-    return render(request, 'base/base.html',{'username':user.username,'nombre':'Nombre','apellido':'Apellido'})
+    return render(request, 'base/base.html')
 
 def login(request):
     if request.method == 'POST':
