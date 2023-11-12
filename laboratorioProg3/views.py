@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,logout as logoutApp, login as loginApp
 from apps.persona.models import Alumno, Docente
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 import logging
 logger = logging.getLogger(__name__)
 
+@login_required(login_url="/login")
 def home(request):
     if not request.user.is_authenticated:
         return redirect('/login')

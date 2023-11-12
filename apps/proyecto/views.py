@@ -2,8 +2,10 @@ from django.shortcuts import render
 from .forms import RegistrarProyectoTrabajoFinal,AsignarAlumnoAPTFForm,MovimientosForm
 import logging
 from apps.persona.models import Alumno
-from apps.proyecto.models import ProyectoTrabajoFinal,IntegrantesPTF
+from apps.proyecto.models import IntegrantesPTF #,ProyectoTrabajoFinal
+from apps.evaluacion.models import ProyectoTrabajoFinal
 from datetime import date
+from django.contrib.auth.models import Group,User
 logger = logging.getLogger(__name__)
 
 
@@ -20,11 +22,18 @@ def registrar_trabajo_final(request):
 
 
 def asignar_alumno_tf(request):
+    grupo_alumno = Group.objects.get(name="alumno") #Obtemos el grupo alumno
     if request.method == 'POST':
         asignar_alumno_form = AsignarAlumnoAPTFForm(request.POST,request.FILES)
+        integrante = request.POST['integrante']
         if asignar_alumno_form.is_valid():
+            alumno = Alumno.objects.get(pk=integrante) # Obtenemos el alumno que asignamos al proyecto
+            usuario = alumno.user # Obtenermos su usuario
+            usuario.groups.add(grupo_alumno) # Le asignamos el grupo alumno, el cual tiene los permisos que requiere un alumno
+            usuario.save()
             asignar_alumno_form.save(commit=True)
-            logger.debug('Se ha asignado el alumno el tf')
+            logger.debug('Se ha asignado el/la alumno/a al tf')
+            logger.debug(f'Ahora el/la alumno/a {alumno} tiene los permisos de ALUMNO')
     else:
         asignar_alumno_form = AsignarAlumnoAPTFForm()
     return render(request, 'proyecto/asignaAlumnoTF.html',{'form':asignar_alumno_form})

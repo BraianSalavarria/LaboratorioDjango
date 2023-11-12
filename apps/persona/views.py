@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from .forms import AlumnoForm, DocenteForm, AsesorForm
 from .models import Alumno, Docente, Ascesor
+from django.contrib.auth.decorators import login_required,permission_required
 import logging
 logger = logging.getLogger(__name__)
 
@@ -26,6 +27,8 @@ def enviar_email(destinatario,usuario,password):
     recipient_list = [destinatario]
     send_mail(subject, message, from_email, recipient_list)
 
+@login_required(login_url="/login")
+@permission_required("persona.view_alumno")
 def registrar_alumno(request):
     nuevo_alumno = None
     if request.method == 'POST':
