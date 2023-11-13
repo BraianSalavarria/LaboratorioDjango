@@ -82,23 +82,22 @@
       <nav class="header-nav ms-auto">
 
 
-        <li class="nav-item dropdown pe-3">
+        <li class="nav-item dropdown pe-3 list-unstyled">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{username}}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{nombre}} {{apellido}}</span>
           </a><!-- End Profile Iamge Icon -->
           <form method="post" action="{% url 'logout' %}">
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
-                <h6>{{nombre}} {{apellido}}</h6>
-                <span>Web Designer</span>
+                <h6>{{username}}</h6>
+                <span>{{perfil}}</span>
               </li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li class="dropdown-item d-flex align-items-center">  
-                  <button class="btn btn-outline-danger"> <i class="bi bi-box-arrow-right"></i>Cerrar sesion</button>
-                
+              <li class="dropdown-item d-flex justify-content-center align-items-center">  
+                  <button class="btn btn-outline-danger"> <i class="bi bi-box-arrow-right"></i>Cerrar sesion</button>                
               </li>
               {% csrf_token %}
             </ul>

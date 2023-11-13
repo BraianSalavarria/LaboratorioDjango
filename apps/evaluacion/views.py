@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User, Group, Permission
 from django.shortcuts import render
 from .forms import ComicionForm, IntegrantesComicionForm, InformeEvaluacionFormalPTFForm,TribunalForm,AsignarDocenteForm,RegistrarInformeEvTFForm
-from .models import TribunalEvaluador
+from .models import TribunalEvaluador,ComicionDeSeguimiento
 from apps.persona.models import Docente
 import logging
 logger = logging.getLogger(__name__)
@@ -31,15 +31,14 @@ def asignar_docente_comicion(request):
         if asignar_docente_comicion_form.is_valid():
             asignar_docente_comicion_form.save(commit=True)
             docente_id = request.POST['integrante']
-            tribunal_numero = request.POST['nroResolucioncomicion']
+            comision_numero = request.POST['nroResolucioncomicion']
+            logger.debug(f'Tribunal numero: {comision_numero}')
             docente = Docente.objects.get(pk=docente_id)
-            tribunal = TribunalEvaluador.objects.get(pk=tribunal_numero)
-            logger.debug(f'El/la docente: {docente} fue agregado/a al tribunal {tribunal}')
+            comision = ComicionDeSeguimiento.objects.get(pk=comision_numero)
+            logger.debug(f'El/la docente: {docente} fue agregado/a al tribunal {comision}')
             user =docente.user
             logger.debug(f'User: {user}')
-            logger.debug(f'Permisos: {user.user_permissions.all()} ')
             user.groups.add(group)
-            logger.debug(f'Permisos: {user.user_permissions.all()} ')
             user.save()
     else:
         asignar_docente_comicion_form = IntegrantesComicionForm()
