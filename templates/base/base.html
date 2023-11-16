@@ -153,6 +153,7 @@
         {% endif %}
         <!-- End Alumnos Nav -->
 
+        {% if perms.persona.add_docente %}
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -190,9 +191,10 @@
             </li>
           </ul>
         </li>
+        {% endif %}
         <!-- End Docentes Nav -->
 
-        {%  if perms.evaluacion.add_comiciondeseguimiento %}
+        {%  if perms.proyecto.add_informeevaluacionformalptf %}
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -208,6 +210,7 @@
             class="nav-content collapse"
             data-bs-parent="#sidebar-nav"
           >
+          {%  if perms.evaluacion.add_comiciondeseguimiento %}
             <li>
               <a href="{% url 'evaluacion:registrar_comicion' %}">
                 <i class="bi bi-circle"></i><span>Registrar Comision</span>
@@ -218,6 +221,7 @@
                 <i class="bi bi-circle"></i><span>Asignar Docente</span>
               </a>
             </li>
+            {%  endif %}
             <li>
               <a href="{% url 'evaluacion:registrar_evaluacion_formal' %}">
                 <i class="bi bi-circle"></i
@@ -301,11 +305,6 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'proyecto:registrar_movimiento_tf' %}">
-                <i class="bi bi-circle"></i><span>Asignar Movimiento</span>
-              </a>
-            </li>
-            <li>
               <a href="{% url 'proyecto:listar_tf' %}">
                 <i class="bi bi-circle"></i><span>Lista de TF</span>
               </a>
@@ -338,7 +337,58 @@
           </div>
         </div>
       </section>
-      <div>{% block content %} {% endblock %}</div>
+      {% block content %}
+        {% if proyecto is not None %}
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+              <div class="card-header"><p>Informacion del proyecto</p></div>
+              <div class="card-body">
+                <h5 class="card-title">{{proyecto.titulo}}</h5>
+                {{proyecto.descripcion}}
+              </div>
+              <div class="card-footer">
+                <p>Director: {{proyecto.director}}</p>
+                <p>Co-Director: {{proyecto.coDirector}}</p>
+                <p>Asesor: {{proyecto.ascesor}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+  
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Movimientos</h5>
+  
+                <!-- Default Table -->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Movimiento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for movimiento in movimientos %}
+                    <tr>
+                      <td>{{movimiento.fechaDeMovimiento}}</td>                     
+                      <td><span class="badge bg-primary">{{movimiento.movimiento}}</span></td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+                <!-- End Default Table Example -->
+              </div>
+            </div>
+
+          </div>
+  
+         
+        </div>
+        {% endif %}
+      {% endblock %}
+      
     </main>
     <!-- End #main -->
 

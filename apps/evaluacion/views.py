@@ -3,7 +3,10 @@ from django.contrib.auth.models import User, Group, Permission
 from django.shortcuts import render
 from .forms import ComicionForm, IntegrantesComicionForm, InformeEvaluacionFormalPTFForm,TribunalForm,AsignarDocenteForm,RegistrarInformeEvTFForm
 from .models import TribunalEvaluador,ComicionDeSeguimiento
+from apps.proyecto.views import asignar_movimiento
+from apps.proyecto.models import MovimientosPTF
 from apps.persona.models import Docente
+from apps.evaluacion.models import ProyectoTrabajoFinal
 import logging
 logger = logging.getLogger(__name__)
 
@@ -51,6 +54,11 @@ def registrar_evalucion_formal(request):
         registrar_evaluacion_formal_form = InformeEvaluacionFormalPTFForm(request.POST)
         if registrar_evaluacion_formal_form.is_valid():
             registrar_evaluacion_formal_form.save(commit=True)
+            proyecto_id = request.POST['proyectoTrabajoFinal']
+            proyecto =ProyectoTrabajoFinal.objects.get(pk=proyecto_id)
+            asignar_movimiento('PROYECTO_EVALUADO_POR_CSTF',proyecto)
+            if request.POST['estado'] == 'ACEPTADO':
+                asignar_movimiento('PROYECTO_EN_EVALUACION_POR_EL_TRIBUNAL',proyecto)
     else:
         registrar_evaluacion_formal_form = InformeEvaluacionFormalPTFForm()
 
@@ -85,6 +93,11 @@ def registrar_evaluacion_tf(request):
         evaluacion_form = RegistrarInformeEvTFForm(request.POST, request.FILES)
         if evaluacion_form.is_valid():
             evaluacion = evaluacion_form.save(commit=True)
+            proyecto_id = request.POST['proyectoTrabajoFinal']
+            proyecto =ProyectoTrabajoFinal.objects.get(pk=proyecto_id)
+            asignar_movimiento('PROYECTO_EVALUADO_POR_EL_TRIBUNAL',proyecto)
+            if request.POST['estado'] == 'ACEPTADO':
+                asignar_movimiento('PROYECTO_APROBADO',proyecto)
             messages.success(request,f'Se ha registrado con exito la evaluacion {evaluacion}')
     else:
         evaluacion_form = RegistrarInformeEvTFForm()
@@ -94,3 +107,12 @@ def registrar_evaluacion_tf(request):
 def listar_tribunales(request):
     listado_tribunales = TribunalEvaluador.objects.all()
     return render(request,'evaluacion/listaTribunales.html',{'listado':listado_tribunales})
+
+
+#Metodo que verifica si un proyecto tiene una determinada condicion. Devuelve true o false
+def check_condicion_proyecto(proyecto,condicion):
+    try:
+        busqueda = MovimientosPTF.objects.filter(proyectoTrabajoFinal=proyecto,movimiento=condicion)
+        return len(busqueda) > 0
+    except Exception as ex:
+        logger.log(ex)

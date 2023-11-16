@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .forms import RegistrarProyectoTrabajoFinal,AsignarAlumnoAPTFForm,MovimientosForm
+from datetime import date
 import logging
+from .models import MovimientosPTF
 from apps.persona.models import Alumno
 from apps.proyecto.models import IntegrantesPTF #,ProyectoTrabajoFinal
 from apps.evaluacion.models import ProyectoTrabajoFinal
@@ -16,6 +18,7 @@ def registrar_trabajo_final(request):
         if nuevo_trabajo_form.is_valid():
             nuevo_trabajo = nuevo_trabajo_form.save(commit=True)
             logger.debug(f'se ha registrado {nuevo_trabajo}')
+            asignar_movimiento('PROYECTO_PRESENTADO',nuevo_trabajo)
     else:
         nuevo_trabajo_form = RegistrarProyectoTrabajoFinal()
     return render(request, 'proyecto/registrarTF.html',{'form':nuevo_trabajo_form})
@@ -72,6 +75,9 @@ def listar_tf(request):
     PROYECTOS = ProyectoTrabajoFinal.objects.all()
     return render(request, 'proyecto/listaTF.html',{'proyectos':PROYECTOS})
 
+# Funciones
 
-
-
+def asignar_movimiento(movimiento,proyecto,archivo=None):   
+    nuevo_movimiento = MovimientosPTF(movimiento=movimiento,proyectoTrabajoFinal=proyecto,archivosAdjuntoOpcional=archivo)
+    nuevo_movimiento.save()
+    logger.debug(f'Nuevo movimiento: {proyecto} - {movimiento}.')
