@@ -16,7 +16,7 @@ class AbstractPersona(models.Model):
 
 class Alumno(AbstractPersona):
     dni = models.CharField(max_length=8, unique=True)
-    matricula = models.CharField(unique=True)
+    matricula = models.CharField(max_length=5,unique=True)
     
     
     def __str__(self) -> str:
