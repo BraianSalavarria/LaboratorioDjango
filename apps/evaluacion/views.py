@@ -78,10 +78,20 @@ def registrar_tribunal(request):
 
 
 def asignar_docente_tribunal(request):
+    group = obtener_grupo('tribunal')
     if request.method == 'POST':
         asignar_form = AsignarDocenteForm(request.POST)
         if asignar_form.is_valid():
             asignar_form.save(commit=True)
+            docente_id = request.POST['integrante']
+            docente = Docente.objects.get(pk=docente_id)
+            logger.debug(f'Docente: {docente}')
+            user =docente.user
+            user.groups.add(group)
+            logger.debug(f'Grupo: {group}')
+            user.save()
+            logger.debug(f'User: {user}')
+            logger.debug('Docente asignado con exito')
     else:
         asignar_form = AsignarDocenteForm()
     return render(request, 'evaluacion/asignaDocenteTribunal.html',{'form':asignar_form})

@@ -28,7 +28,7 @@ def enviar_email(destinatario,usuario,password):
     send_mail(subject, message, from_email, recipient_list)
 
 @login_required(login_url="/login")
-@permission_required("persona.view_alumno")
+@permission_required("persona.add_alumno")
 def registrar_alumno(request):
     nuevo_alumno = None
     if request.method == 'POST':

@@ -225,14 +225,14 @@
             <li>
               <a href="{% url 'evaluacion:registrar_evaluacion_formal' %}">
                 <i class="bi bi-circle"></i
-                ><span>Registrar Informe Ev.Formal</span>
+                ><span>Registrar Informe Ev. Formal</span>
               </a>
             </li>
           </ul>
         </li>
         {%  endif %}
         <!-- End Comision Nav -->
-        
+        {% if perms.evaluacion.view_tribunalevaluador %}
         <li class="nav-item">
           <a
             class="nav-link collapsed"
@@ -253,17 +253,21 @@
                 <i class="bi bi-circle"></i><span>Registrar Tribunal</span>
               </a>
             </li>
+            {% if perms.evaluacion.add_integrantestribunal %}
             <li>
               <a href="{% url 'evaluacion:asignar_docente_tribunal' %}">
                 <i class="bi bi-circle"></i><span>Asignar Docente</span>
               </a>
             </li>
+            {% endif %}
+            {% if perms.proyecto.add_informeevaluacionptf %}
             <li>
               <a href="{% url 'evaluacion:registrar_evaluacion_tf' %}">
                 <i class="bi bi-circle"></i
                 ><span>Registrar Evaluacion Formal</span>
               </a>
             </li>
+            {% endif %}
             <li>
               <a href="{% url 'evaluacion:lista_tribunales' %}">
                 <i class="bi bi-circle"></i><span>Lista de Tribunales</span>
@@ -271,6 +275,7 @@
             </li>
           </ul>
         </li>
+        {% endif  %}
         <!-- End Tribunal Nav -->
         {% if perms.evaluacion.add_proyectotrabajofinal %}
         <li class="nav-item">
