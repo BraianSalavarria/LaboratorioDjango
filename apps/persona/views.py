@@ -60,13 +60,19 @@ def registrar_docente(request):
         apellido = request.POST['apellido']
         username = generar_username(nombre, apellido)
         password = generar_password(10)
+        logger.debug(f'Username generado: {username}')
+        logger.debug(f'Password generada: {password}')
         registrar_docente_form = DocenteForm(request.POST)
         if registrar_docente_form.is_valid():
             user = User.objects.create_user(username,password= password)
             nuevo_docente = registrar_docente_form.save(commit=True)
             nuevo_docente.user = user
             nuevo_docente.save()
-            enviar_email(nuevo_docente.correoElectronico,username, password)
+            try:
+                enviar_email(nuevo_docente.correoElectronico,username, password)
+            except Exception as ex:
+                logger.debug(ex)
+                
             messages.success(request, f'se ha registrado el docente {nuevo_docente} correctamente')
     else:
         registrar_docente_form = DocenteForm()     

@@ -4,7 +4,7 @@ from apps.persona.models import Alumno, Docente
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from apps.proyecto.models import IntegrantesPTF,MovimientosPTF
-from apps.evaluacion.models import ProyectoTrabajoFinal
+from apps.evaluacion.models import ProyectoTrabajoFinal, IntegrantesTribunal,TribunalEvaluador
 import logging
 logger = logging.getLogger(__name__)
 
@@ -28,6 +28,9 @@ def home(request):
             if user.has_perm('evaluacion.view_proyectotrabajofinal'):
                 context = obtener_info_alumno(persona.id)
                 return render(request, 'base/base.html',context)
+        elif isinstance(persona,Docente):
+            context = obtener_info_docente(persona.id)
+            return render(request, 'base/base.html',context)
     return render(request, 'base/base.html')
 
 def login(request):
@@ -60,5 +63,22 @@ def obtener_info_alumno(id):
     
     return {'proyecto':proyecto,'movimientos':movimientos_list}
     
-    
-    
+def obtener_info_docente(id):
+    listado_proyectos_a_evaluar = []
+    docente = Docente.objects.get(pk=id)
+    user = docente.user
+    if user.has_perm('proyecto.add_informeevaluacionptf'): #El docente forma parte de un tribunal evaluador
+        tribunales = IntegrantesTribunal.objects.filter(integrante=docente) #Tribunales en los cuales el docente es parte
+        
+        for tribunal in tribunales:
+            tribunal_evaluador = TribunalEvaluador.objects.get(pk=tribunal.id)
+            proyecto = tribunal_evaluador.trabajo_final
+            logger.debug(f'Se ha encontrado el proyecto: {proyecto}')
+            movimiento = MovimientosPTF.objects.filter(proyectoTrabajoFinal=proyecto,movimiento='PROYECTO_EN_EVALUACION_POR_EL_TRIBUNAL') #el proyecto tiene que estar aprobado por la comision
+            if len(movimiento) > 0:
+                listado_proyectos_a_evaluar.append(proyecto)
+                logger.debug(f'Se ha añadido el proyecto: {proyecto} al contexto')
+            else:
+                logger.debug(f'El proyecto: {proyecto} no esta aprobado por la comision')
+    context = {'proyectos':listado_proyectos_a_evaluar}
+    return context

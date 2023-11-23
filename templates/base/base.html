@@ -392,6 +392,27 @@
          
         </div>
         {% endif %}
+        {% if proyectos is not None %}
+        <div class="row">
+          <div class="col-lg-6">
+            <p>Proyectos pendientes de evaluacion</p>
+            {% for proyecto in proyectos %}
+            <div class="card">
+              <div class="card-header"><p>Informacion del proyecto</p></div>
+              <div class="card-body">
+                <h5 class="card-title">{{proyecto.titulo}}</h5>
+                {{proyecto.descripcion}}
+              </div>
+              <div class="card-footer">
+                <p>Director: {{proyecto.director}}</p>
+                <p>Co-Director: {{proyecto.coDirector}}</p>
+                <p>Asesor: {{proyecto.ascesor}}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
       {% endblock %}
       
     </main>
